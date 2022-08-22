@@ -18,7 +18,7 @@ const App = () => {
   const [dataType, setDataType] = useState<"delta"|"date">("delta")
   const [_updateInterval, setUpdateInterval] = useState<number>(50)
   const [format, setFormat] = useState<"text" | "time">("text")
-  const [ago, setAgo] = useState<boolean>(false)
+  const [ago, setAgo] = useState<boolean>(true)
   const [inText, setInText] = useState<string>("in ")
   const [agoText, setAgoText] = useState<string>(" ago")
   const [countdown, setCountdown] = useState<boolean>(false)
