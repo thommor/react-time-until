@@ -17,15 +17,16 @@
     "@types/node": "file:../node_modules/@types/node",
     "@types/react": "file:../node_modules/@types/react",
     "@types/react-dom": "file:../node_modules/@types/react-dom",
-    "antd": "^4.22.7",
+    "antd": "^4.16.13",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
-    "react-scripts": "file:../node_modules/react-scripts",
+    "react-scripts": "^5.0.1",
     "react-time-until": "file:..",
     "typescript": "file:../node_modules/typescript"
   },
   "devDependencies": {
-    "@babel/plugin-syntax-object-rest-spread": "^7.8.3"
+    "@babel/plugin-syntax-object-rest-spread": "^7.8.3",
+    "@types/antd": "^1.0.0"
   },
   "eslintConfig": {
     "extends": "react-app"

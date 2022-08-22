@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Typography, InputNumber, Card, Space, Radio, Divider, Descriptions, Checkbox, Switch, Input } from 'antd'
+import { Layout, Typography, InputNumber, Space, Radio, Divider, Descriptions , Switch, Input, notification } from 'antd'
 import { useDebounce } from 'use-debounce'
 import { TimeUntil, useTimeUntil } from 'react-time-until'
 import 'antd/dist/antd.css'
@@ -18,16 +18,24 @@ const App = () => {
   const [delta] = useDebounce(_delta, 500)
   const [updateInterval] = useDebounce(_updateInterval, 500)
 
-  const { delta: currentDelta, hours, minutes, seconds } = useTimeUntil({ delta, countdown })
-
   const timeUntilProps = {
     format,
     ago,
-    interval: updateInterval,
-    countdown,
     finishText,
-    onFinish: () => console.log("Done!")
+    countdown,
+    onFinish: () => notification.info({
+      message: "Countdown complete"
+    })
   }
+  const timeUntilHookProps = {
+    delta,
+    countdown,
+    interval: updateInterval,
+  }
+
+  const controlledValue = useTimeUntil(timeUntilHookProps)
+  const { delta: currentDelta, hours, minutes, seconds } = controlledValue
+
 
   return (
     <Layout>
@@ -93,7 +101,7 @@ const App = () => {
                     <div className="ant-statistic-content">
                       <span className="ant-statistic-content-value">
                         {/* You can use the delta useTimeUntil to use the component with the hook. */}
-                        <TimeUntil { ...timeUntilProps } delta={ currentDelta } onFinish={ undefined } />
+                        <TimeUntil { ...timeUntilProps } { ...timeUntilHookProps } value={ controlledValue } onFinish={ undefined } />
                       </span>
                     </div>
                   </div>
