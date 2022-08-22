@@ -1,13 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
-
-type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never }
-type XOR<T, U> = (T | U) extends object
-  ? (Without<T, U> & U) | (Without<U, T> & T)
-  : T | U
+import { XOR } from './types'
   
 interface BaseProps {
-    // Update interval
-    interval?: number
+    // Update interval. If null, never update.
+    interval?: number | null
 }
 interface CountdownProps {
     // Countdown will stop at 0 instead of going into the negatives
@@ -69,11 +65,11 @@ export const useTimeUntil = ({
     }), [timeDelta, timeDeltaNumber, finished])
 
     useEffect(() => {
-        const updater = window.setInterval(() => {
+        const updater = interval !== null ? window.setInterval(() => {
             setCurrentTime(Date.now())
-        }, interval)
+        }, interval) : undefined
         return () => {
-            clearInterval(updater)
+            window.clearInterval(updater)
         }
     }, [interval])
 

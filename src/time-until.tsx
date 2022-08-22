@@ -2,7 +2,7 @@
  * Countdown display component
  */
 import React, { Fragment, ReactNode } from 'react'
-import { useTimeUntil, UseTimeUntilProps } from './use-time-until'
+import { TimeUntilValue, useTimeUntil, UseTimeUntilProps } from './use-time-until'
 
 type TimeUntilProps = {
     format?: "text" | "time"
@@ -12,16 +12,24 @@ type TimeUntilProps = {
     inText?: string
     agoText?: string
     finishText?: ReactNode
-} & UseTimeUntilProps
+} & Partial<UseTimeUntilProps> & Partial<{
+    value: TimeUntilValue
+}>
 export const TimeUntil = ({
     format="text",
     ago=false,
     inText="in ",
     agoText=" ago",
     finishText=undefined,
+    value=undefined,
     ...props
 }: TimeUntilProps) => {
-    const { delta, seconds, minutes, hours, finished } = useTimeUntil(props)
+    const useTimeUntilProps: UseTimeUntilProps = value ? {
+        delta: 0,
+        interval: null
+    } : props as UseTimeUntilProps
+    let { delta, seconds, minutes, hours, finished } = useTimeUntil(useTimeUntilProps)
+    if (value) ({ delta, seconds, minutes, hours, finished } = value)
 
     const hoursText = hours !== 1 ? `${ hours } hours` : `1 hour`
     const minutesText = minutes !== 1 ? `${ minutes } minutes` : `1 minute`
