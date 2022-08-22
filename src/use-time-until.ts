@@ -11,7 +11,7 @@ interface CountdownProps {
     onFinish?: () => void
 }
 export type UseTimeUntilProps = BaseProps & CountdownProps & XOR<{
-    time: Date
+    date: Date
 }, {
     delta: number
 }>
@@ -25,7 +25,7 @@ export interface TimeUntilValue {
 }
 
 export const useTimeUntil = ({
-    time,
+    date,
     delta,
     countdown=false,
     onFinish=() => {},
@@ -34,8 +34,8 @@ export const useTimeUntil = ({
     const [currentTime, setCurrentTime] = useState<number>(Date.now())
 
     const targetTime = useMemo<number>(() => (
-        time ? time.getTime() : new Date(Date.now() + delta!).getTime()
-    ), [time, delta])
+        date ? date.getTime() : new Date(Date.now() + delta!).getTime()
+    ), [date, delta])
 
     // Delta until targetTime is reached
     const timeDeltaNumber = useMemo<number>(() => (
