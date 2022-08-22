@@ -21,6 +21,9 @@ export interface TimeUntilValue {
     seconds: number,
     minutes: number,
     hours: number,
+    days: number,
+    months: number,
+    years: number,
     finished: boolean
 }
 
@@ -61,6 +64,9 @@ export const useTimeUntil = ({
         seconds: timeDelta.getUTCSeconds(),
         minutes: timeDelta.getUTCMinutes(),
         hours: timeDelta.getUTCHours(),
+        days: timeDelta.getUTCDate() - 1,
+        months: timeDelta.getUTCMonth(),
+        years: timeDelta.getUTCFullYear() - 1970,
         finished
     }), [timeDelta, timeDeltaNumber, finished])
 
