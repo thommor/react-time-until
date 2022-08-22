@@ -15,12 +15,12 @@ npm install --save react-time-until
 ```tsx
 import React, { Component } from 'react'
 
-import MyComponent from 'react-time-until'
+import { TimeUntil } from 'react-time-until'
 import 'react-time-until/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <TimeUntil delta={ 10000 } />
   }
 }
 ```
